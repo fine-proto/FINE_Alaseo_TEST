@@ -3607,6 +3607,45 @@ S.vault.mount=el=>{const c=cur();const p=c.p||(c.p={});const tbar=$('#tabbar');i
 })();
 
 
+/* ================= 11-7 연결 완료 '차량 별명' 필드 · 11-9 차량 별명 팝업 (피그마 11.19) =================
+   ① 연결 요약 카드: 기기 행(X600 AI + SSID) → 연결된 차량 → 차량 별명 필드(우측 편집 아이콘). 펌웨어·업데이트 행 삭제
+   ② 차량 별명 기본값 = 연결된 차량의 핸즈프리명(예: SONATA_DN8). 필드에서 직접 입력하지 않고 탭하면 11-9 바텀시트
+   ③ 저장 → 필드와 홈 최상단 차량 이름에 반영 / 모두 지우고 저장 → 핸즈프리명으로 되돌림 / 딤·✕ → 저장 없이 닫힘 */
+document.head.insertAdjacentHTML('beforeend',`<style>
+.r7c .r7-dev{margin:0 0 14px}
+.r7c .r7-dev small{display:block;font-size:12px;color:var(--sub);margin-top:2px;font-weight:400}
+.r7-nf{display:flex;align-items:center;gap:8px;height:48px;border:1px solid #D4D7DC;border-radius:12px;padding:0 12px 0 16px;cursor:pointer;background:#fff}
+.r7-nf span{flex:1;min-width:0;font-size:15px;color:#9AA1AB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r7-nf:active{background:#F4F6FB}
+.nk-h{display:flex;align-items:center;justify-content:space-between;padding:8px 20px 0}
+.nk-h h3{font-size:22px;font-weight:900;margin:0!important;padding:0!important}
+.nk-x{width:36px;height:36px;border-radius:50%;background:#F1F2F4;display:flex;align-items:center;justify-content:center}
+.nk-b{padding:10px 20px 18px}
+.nk-b p{font-size:14px;color:var(--sub);margin:0 0 16px}
+.nk-b .input{height:54px}
+.nk-b .btn{width:100%;margin-top:12px}
+</style>`);
+const R7_PEN='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M18.4 2.6a2 2 0 0 1 2.9 2.9L12 14.8 8 16l1.2-4Z" fill="#111"/></svg>';
+const nickVal=()=>st.carNick.trim()||st.device.car;
+{const r0=S.reg7.render,m0=S.reg7.mount;
+ S.reg7.render=p=>r0(p).replace(/<div class="card r7c"[\s\S]*?<button id="nameSet" hidden><\/button><\/div>/,()=>`<div class="card r7c" style="border:1px solid var(--line2);padding:16px;text-align:left">
+  <div class="r7-dev row" style="gap:16px;display:flex;align-items:center"><span class="r7-ic">📷</span><div><b style="font-size:16px">X600 AI</b><small>FineVu_X600AI_1c5e13</small></div></div>
+  <div class="r7-hr"></div>
+  <div class="small muted" style="margin-bottom:10px">연결된 차량</div>
+  <div class="r7-car"><span class="r7-ci">🚗</span><div><b style="font-size:15px">${st.device.car}</b><div class="small muted">핸즈프리 · 연결됨</div></div></div>
+  <div class="r7-hr"></div>
+  <div class="small muted" style="margin-bottom:10px">차량 별명</div>
+  <div class="r7-nf" id="r7NickF" role="button" aria-label="차량 별명 수정"><span>${escH(nickVal())}</span>${R7_PEN}</div>
+  <button id="nameSet" hidden></button></div>`);
+ S.reg7.mount=(el,p)=>{m0&&m0(el,p);if(!st.carNick.trim())st.carName=st.device.car;
+  const f=el.querySelector('#r7NickF');if(!f)return;
+  f.onclick=e=>{e.stopPropagation();
+   sheet(`<div class="nk-h"><h3>차량 별명</h3><button class="nk-x" id="nkX" aria-label="닫기"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M1 1l10 10M11 1 1 11" stroke="#333" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>
+    <div class="nk-b"><p>연결된 차량의 별명을 입력해 주세요.</p><input class="input" id="nkIn" maxlength="15" value="${escH(nickVal())}" placeholder="${escH(st.device.car)}"><button class="btn btn-primary" id="nkSave">저장</button></div>`,L=>{
+    const i=L.querySelector('#nkIn');L.querySelector('#nkX').onclick=()=>{$('#layer').innerHTML=''};
+    L.querySelector('#nkSave').onclick=()=>{const v=i.value.trim();st.carNick=v===st.device.car?'':v;st.carName=nickVal();$('#layer').innerHTML='';render('fade');toast(v?'차량 별명을 저장했어요':'연결된 차량 이름으로 되돌렸어요')};
+    setTimeout(()=>{i.focus();i.select()},250)})}}}
+
 /* ================= 안드로이드 기기 뒤로 버튼(◁) 처리 (11.19) ================= */
 /* 문제: 앱 안 화면 이동이 브라우저 방문 기록에 남지 않아, 기기 뒤로 버튼을 누르면 프로토타입 페이지 자체를 떠났음.
    QR을 카메라로 찍어 들어온 경우 이전 기록이 카메라 앱이라 카메라로 돌아가고, 탭이 닫혀 다시 접속해야 했음.
