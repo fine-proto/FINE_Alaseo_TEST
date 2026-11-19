@@ -3546,7 +3546,7 @@ S.vault.mount=el=>{const c=cur();const p=c.p||(c.p={});const tbar=$('#tabbar');i
  /* ---------- 기록: 누름 · 시연 조작 ---------- */
  const label=el=>{for(let n=el,i=0;n&&n.id!=='screen'&&i<5;n=n.parentElement,i++){const t=(n.getAttribute&&n.getAttribute('aria-label')||n.innerText||n.value||n.placeholder||'').replace(/\s+/g,' ').trim();if(t)return t.slice(0,60)}return '아이콘'};
  const isTap=el=>{let hit=null;for(let n=el;n&&n.id!=='screen';n=n.parentElement){if(/^(BUTTON|A|SELECT|LABEL)$/.test(n.tagName)||(n.hasAttribute&&n.hasAttribute('data-go'))||n.onclick)return n;if(!hit&&n instanceof HTMLElement&&getComputedStyle(n).cursor==='pointer')hit=n}return hit};
- addEventListener('click',e=>{const t=e.target;if(!sess||!(t instanceof Element)||!t.closest('#screen')||t.closest('.tt-start,.tt-done,.tt-confirm,.tt-hot,.tt-stat'))return;
+ addEventListener('click',e=>{const t=e.target;if(window.SYSBACK_CLICKING||!sess||!(t instanceof Element)||!t.closest('#screen')||t.closest('.tt-start,.tt-done,.tt-confirm,.tt-hot,.tt-stat'))return;
   if(/^(INPUT|TEXTAREA)$/.test(t.tagName))return;
   const n=isTap(t);if(!n)return;const l=label(n);
   if(t.closest('.mdemo')){if(t.closest('.tt-end'))return;add('시연 조작',l);cnt.demo++}
@@ -3595,10 +3595,48 @@ S.vault.mount=el=>{const c=cur();const p=c.p||(c.p={});const tbar=$('#tabbar');i
  const drawStat=()=>{const s=sc.querySelector('.tt-stat');if(!s)return;s.innerHTML=sess?`테스터 <b>${sess.name}</b> · 시작 ${sess.start.slice(11)}<br>화면 이동 ${cnt.screen} · 누름 ${cnt.tap} · 입력 ${cnt.input} · 팝업 ${cnt.popup} · 시연 조작 ${cnt.demo}<br>${lastErr?`<span style="color:#FF8A80">시트 저장 확인 실패 ${lastErr}</span><br>`:''}${queue.length?`전송 대기 ${queue.length}건`:lastOk?`시트 저장 확인 ${lastOk}`:'보낼 기록 없음'}<br><span style="color:#9AA3AE">${ua()}</span>`:'진행 중인 테스터 없음'};
  let taps=[];sc.querySelector('.tt-hot').addEventListener('click',e=>{e.stopPropagation();const t=Date.now();taps=taps.filter(x=>t-x<900);taps.push(t);if(taps.length>=3){taps=[];const s=sc.querySelector('.tt-stat');if(s){s.remove();return}sc.insertAdjacentHTML('beforeend','<div class="tt-stat"></div>');drawStat();sc.querySelector('.tt-stat').onclick=ev=>{ev.stopPropagation();ev.currentTarget.remove()}}});
 
+ /* ---------- 기기 뒤로 버튼(◁): 시작·종료 화면에서는 머물고, 확인 창·진행자 상태는 닫기 · 시트에 기록 ---------- */
+ window.SYSBACK_MSG="테스트를 마치려면 시연 코너 맨 아래 '테스트 종료'를 눌러 주세요.";
+ window.SYSBACK_HOOK=()=>{const c=sc.querySelector('.tt-confirm');if(c){c.remove();return true}const s=sc.querySelector('.tt-stat');if(s){s.remove();return true}return !!sc.querySelector('.tt-start,.tt-done')};
+ window.SYSBACK_LOG=r=>{add('기기 뒤로 버튼',{popup:'팝업 닫기',back:'이전 화면으로',home:'홈 탭으로',stay:'첫 화면이라 머무름(안내 토스트)'}[r]||r);save()};
+
  /* ---------- 새로고침해도 테스트 이어가기 ---------- */
  let saved=null;try{saved=JSON.parse(sessionStorage.getItem(KEY)||'null')}catch(_){}
  if(saved&&saved.sess){sess=saved.sess;sess.end='';cnt=Object.assign(cnt,saved.cnt||{});queue=saved.queue||[];add('새로고침','페이지를 새로고침함(앱 상태는 처음으로)');save()}
  else showStart();
+})();
+
+
+/* ================= 안드로이드 기기 뒤로 버튼(◁) 처리 (11.19) ================= */
+/* 문제: 앱 안 화면 이동이 브라우저 방문 기록에 남지 않아, 기기 뒤로 버튼을 누르면 프로토타입 페이지 자체를 떠났음.
+   QR을 카메라로 찍어 들어온 경우 이전 기록이 카메라 앱이라 카메라로 돌아가고, 탭이 닫혀 다시 접속해야 했음.
+   수정: 방문 기록에 '뒤로 막이' 한 칸을 두고, 뒤로 버튼을 앱 안의 뒤로가기로 처리 → 페이지를 떠나지 않음.
+   ① 팝업·하단 시트가 열려 있으면 닫기
+   ② 하위 화면이면 화면의 뒤로가기(←/닫기)와 똑같이 동작
+   ③ 탭 첫 화면이면 홈 탭으로
+   ④ 홈이면 페이지에 머물고 안내 토스트 */
+(function(){
+ if(!(window.history&&history.pushState))return;
+ const MSG=window.SYSBACK_MSG||'첫 화면이에요. 종료하려면 브라우저를 닫아 주세요.';
+ let armed=false;
+ const arm=()=>{if(armed)return;try{history.pushState({sysback:1},'');armed=true}catch(_){}};
+ try{history.replaceState({sysback:0},'')}catch(_){}
+ /* 크롬·삼성 인터넷은 사용자 조작 전에 추가된 기록을 뒤로 버튼에서 건너뛰므로, 첫 터치 때 막이를 만들고 이후 터치마다 막이가 있는지 확인 */
+ ['pointerdown','touchstart','keydown'].forEach(t=>addEventListener(t,arm,{capture:true,passive:true}));
+ const visible=el=>!!(el&&el.offsetParent!==null);
+ const handle=()=>{
+  if(typeof window.SYSBACK_HOOK==='function'&&window.SYSBACK_HOOK()===true)return;   // 테스트용 시작·종료 화면 등은 각 빌드가 처리
+  const layer=document.getElementById('layer');
+  if(layer&&layer.innerHTML.trim()){layer.innerHTML='';if(typeof closeKb==='function')try{closeKb(true)}catch(_){};return 'popup'}
+  const pg=document.querySelector('#pages .page:last-child')||document.querySelector('#pages .page');
+  const b=pg&&[...pg.querySelectorAll('[data-back],.backb')].find(visible);
+  if(b&&typeof stack!=='undefined'&&(stack.length>1||!b.hasAttribute('data-back'))){window.SYSBACK_CLICKING=true;try{b.click()}finally{window.SYSBACK_CLICKING=false}return 'back'}
+  if(typeof stack!=='undefined'&&stack.length>1){back();return 'back'}
+  if(typeof stack!=='undefined'&&stack[0]&&stack[0].id!=='home'&&typeof tab==='function'){tab('home');return 'home'}
+  if(typeof toast==='function')toast(MSG);return 'stay'};
+ addEventListener('popstate',()=>{armed=false;arm();
+  let r='';try{r=handle()}catch(e){console.error(e)}
+  if(typeof window.SYSBACK_LOG==='function'&&r)try{window.SYSBACK_LOG(r)}catch(_){}});
 })();
 
 render('fade');
