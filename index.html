@@ -3737,6 +3737,7 @@ S.device={cls:'gray d12pg',render:()=>{const d=st.device,nk=d12Nk();
    modal({title:'연결 차량 변경',q:`${n}로 변경할까요?`,body:`기존 차량(${st.device.car}) 등록은 해제돼요.<br>블랙박스는 ${n}와 연결돼요.`,ok:'변경하기',onOk:()=>{st.device.car=n;st.carNick='';st.carName=n;render('fade');toast('연결 차량을 변경했어요')}})}));
   el.querySelector('#delDev').onclick=()=>modal({title:'블랙박스 기기 삭제',q:'등록된 블랙박스를 삭제할까요?',body:'블랙박스와 연결된 차량 등록이 함께 해제돼요.<br>지금까지의 기록과 보관함 파일은 유지돼요.',ok:'기기 삭제',okCls:'mb-danger',onOk:()=>{st.device.registered=false;back();toast('기기를 삭제했어요')}})}};
 /* @@dz12.js@@ */
+
 /* @@dzh01.js@@ */
 /* ================= [디자인 반영 11.23] 01 홈 — 디자인팀 01_Home 기준 (B안 전용) =================
    스플래시 · 에이프리콧 그라데이션 상단 · 상황 카드(일러스트 + n/총 표시) · 반원 운전 점수 · 3D 아이콘 · 파인 AI 챗봇 입력 · 블랙박스/가치봄/내 차의 기록 플랫 구성
@@ -3758,8 +3759,8 @@ document.head.insertAdjacentHTML('beforeend',`<style>
 .h1 .nh-head{height:56px;padding:0 14px 0 20px}
 .h1-mc{display:flex;align-items:center;gap:10px}
 .h1-mc b{font-size:21px;font-weight:800;letter-spacing:-.2px;color:#1F2329}
-.h1-st{display:flex;align-items:center;gap:5px;height:30px;padding:0 11px 0 4px;border-radius:99px;background:rgba(255,255,255,.62);font-size:13px;font-weight:600;color:#1F2329}
-.h1-st i{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.h1-st{display:flex;align-items:center;gap:5px;height:30px;padding:0 11px 0 5px;border-radius:99px;background:#FFF5E8;font-size:13px;font-weight:600;color:#1F2329}
+.h1-st i{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .h1-logo{height:22px;display:block}
 .h1 .nh-main{padding:8px 16px 24px;gap:0}
 .h1 .nh-track{gap:12px;padding:6px 0 14px;margin:-6px 0 0}
@@ -3796,7 +3797,7 @@ document.head.insertAdjacentHTML('beforeend',`<style>
 .h1-bbt{display:flex;margin-top:18px}
 .h1-bbt>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;font-weight:500;color:#1F2329}
 .h1-bbt>div.dis{opacity:.38;cursor:default}
-.h1-bbt .ib{width:48px;height:48px;border-radius:14px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.07);display:flex;align-items:center;justify-content:center;position:relative}
+.h1-bbt .ib{width:48px;height:48px;border-radius:14px;background:#F6F6F6;box-shadow:0 2px 6px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;position:relative}
 .h1-bbt .rd{position:absolute;right:7px;top:6px;width:6px;height:6px;border-radius:50%;background:#EF4444}
 .h1-far{font-size:13px;line-height:1.5;color:#6B7280;margin-top:14px}
 .h1-gb{display:flex;align-items:center;gap:14px;margin-top:18px;cursor:pointer}
@@ -3816,7 +3817,7 @@ const H1I={
  nav:'<svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="none" stroke="#2B7BF6" stroke-width="1.4"/><circle cx="5" cy="5" r="2" fill="#2B7BF6"/></svg>',
  chev:'<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#1F2329" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 2.5 3.5 3.5-3.5 3.5"/></svg>',
  chevG:'<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#9AA1AB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.5 5.5 5.5-5.5 5.5"/></svg>',
- carW:'<svg width="13" height="13" viewBox="0 0 28 28" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13l2-5.2A2 2 0 0 1 9.9 6.5h8.2A2 2 0 0 1 20 7.8L22 13"/><path d="M4 18.5v-3.3A2.2 2.2 0 0 1 6.2 13h15.6a2.2 2.2 0 0 1 2.2 2.2v3.3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/></svg>',
+ carW:'<svg width="13" height="13" viewBox="0 0 24 24"><path fill="#fff" fill-rule="evenodd" d="M6.2 4.5h11.6l2.2 6.2c.9.4 1.5 1.3 1.5 2.3v5.5a1 1 0 0 1-1 1h-1.3v1.5a1 1 0 0 1-1 1h-1.4a1 1 0 0 1-1-1v-1.5H8.2v1.5a1 1 0 0 1-1 1H5.8a1 1 0 0 1-1-1v-1.5H3.5a1 1 0 0 1-1-1V13c0-1 .6-1.9 1.5-2.3zM7.6 6.5l-1.4 4h11.6l-1.4-4zM5 13.3h3.5v2H5zm10.5 0H19v2h-3.5z"/></svg>',
  pW:'<b style="color:#fff;font-size:12px;font-weight:800">P</b>',
  up:'<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16V4.5M5 9.5l5-5 5 5"/></svg>',
  rec:'<svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="3.5" y="5.5" width="19" height="15" rx="2.5" stroke="#1F2329" stroke-width="1.8"/><path d="M11 9.6v6.8l5.4-3.4z" fill="#F28300"/></svg>',
@@ -3856,7 +3857,7 @@ S.home.render=()=>{const unreg=!st.device.registered,norec=!unreg&&st.noRecord;
  const bt=(k,ic,l,go)=>`<div class="${far?'dis':''}" ${far?'':`data-wifi="${go}"`}><span class="ib">${ic}${k==='fw'?'<i class="rd"></i>':''}</span>${l}</div>`;
  const s=st.score||92;
  return `<div class="body tabpad nh h1" id="homeBody">
- <header class="nh-head">${unreg?`<img class="h1-logo" src="${H1.logo}" alt="FINE Alaseo">`:`<div class="h1-mc" id="nhVeh"><b>${escHtml1(st.carName||'MY CAR')}</b>${norec&&!drv?'':`<span class="h1-st"><i style="background:${drv?'#2B7BF6':'#F28300'}">${drv?H1I.carW:H1I.pW}</i>${drv?'주행중':'주차중'}</span>`}</div>`}<button class="nh-bell" data-go="noti" aria-label="알림">${NI.bell}${!unreg&&unread()?'<i></i>':''}</button></header>
+ <header class="nh-head">${unreg?`<img class="h1-logo" src="${H1.logo}" alt="FINE Alaseo">`:`<div class="h1-mc" id="nhVeh"><b>${escHtml1(st.carName||'MY CAR')}</b>${norec&&!drv?'':`<span class="h1-st"><i style="background:${drv?'#247CFF':'#F28300'}">${H1I.carW}</i>${drv?'주행중':'주차중'}</span>`}</div>`}<button class="nh-bell" data-go="noti" aria-label="알림">${NI.bell}${!unreg&&unread()?'<i></i>':''}</button></header>
  <main class="nh-main h-main">
   <section class="nh-car"><div class="nh-track" id="nhTrack">${cards.map((k,i)=>h1Card(k,i,n)).join('')}</div>${n>1?`<div class="nh-dots" id="nhDots">${cards.map((c,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div>`:''}</section>
   ${unreg?'':norec?`<section class="h1-score" id="nhScoreEmpty">${h1Gauge(0,1)}<div style="flex:1;min-width:0"><small>나의 운전 점수</small><b>운전 데이터를 분석해 드려요</b></div>${H1I.chevG}</section>`:`<section class="h1-score" data-go="score">${h1Gauge(s)}<div style="flex:1;min-width:0"><small>나의 운전 점수</small><b>${scoreMsg(s)}</b></div>${H1I.chevG}</section>`}
