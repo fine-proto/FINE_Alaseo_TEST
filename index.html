@@ -4084,6 +4084,44 @@ const D10MAIL='Admin_fineai@gmail.com';
   <div class="d10-ver"><b>버전 정보</b><small>1.0.12</small></div></div>`};
  S.more.mount=(el,p)=>{try{m0&&m0(el,p)}catch(e){}}}
 /* @@dz10.js@@ */
+/* @@dz05b.js@@ */
+/* ================= [수정 11.24] 05 가치봄 — 기본 지도보기 · 지도보기/목록보기 버튼 삭제 · 하단 시트 끌어올리기/내리기로 전환 =================
+   지도보기: 하단 '지도에 보이는 소식' 시트의 손잡이를 위로 끌어올리면(또는 탭) 목록보기
+   목록보기: 목록 상단 손잡이를 아래로 끌어내리면(또는 탭) 지도보기 */
+st.gbView='map';
+document.head.insertAdjacentHTML('beforeend',`<style>
+.g5-bs{touch-action:none;user-select:none;transition:transform .22s ease}
+.g5-bs.drag,.g5-lgr.drag{transition:none}
+.g5-bs .gr{width:40px;height:5px;border-radius:3px;background:#D4D7DC;margin:2px auto 14px}
+.g5-bs.in{animation:g5bsIn .26s ease-out}
+@keyframes g5bsIn{from{transform:translateY(60%)}to{transform:none}}
+.g5-lgr{position:sticky;top:0;z-index:3;background:#fff;height:26px;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;user-select:none;border-radius:16px 16px 0 0}
+.g5-lgr i{width:40px;height:5px;border-radius:3px;background:#D4D7DC}
+.body.g5.in{animation:g5lsIn .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes g5lsIn{from{transform:translateY(55%);opacity:.6}to{transform:none;opacity:1}}
+.body.g5.out{transition:transform .2s ease,opacity .2s ease;transform:translateY(70%);opacity:.3}
+.g5-bs.out{transform:translateY(-120%)!important;transition:transform .2s ease}
+</style>`);
+{const r0=S.gb.render,m0=S.gb.mount;
+ S.gb.render=p=>{let h=r0(p);
+  h=h.replace(/<button class="g5-mapbtn" id="g5View"[^>]*>[\s\S]*?<\/button>/g,'');
+  if(st.gbView==='map')h=h.replace('<div class="g5-bs" id="g5Sheet"',`<div class="g5-bs${st.gbAnim==='map'?' in':''}" id="g5Sheet" role="button" aria-label="위로 끌어올려 목록 보기"`);
+  else h=h.replace(/<div class="body ([^"]*)g5"([^>]*)>/,(m,a,b)=>`<div class="body ${a}g5${st.gbAnim==='list'?' in':''}"${b}><div class="g5-lgr" id="g5LGr" role="button" aria-label="아래로 끌어내려 지도 보기"><i></i></div>`);
+  st.gbAnim='';return h};
+ const swap=(v,el)=>{st.gbView=v;st.gbAnim=v;render('fade')};
+ /* 손잡이 끌기: dir=-1 위로, dir=1 아래로. 40px 이상 끌거나 짧게 탭하면 전환 */
+ const drag=(h,mv,dir,done)=>{let y0=null,dy=0,moved=false;
+  h.addEventListener('pointerdown',e=>{y0=e.clientY;dy=0;moved=false;mv.classList.add('drag');try{h.setPointerCapture(e.pointerId)}catch(_){}e.stopPropagation()});
+  h.addEventListener('pointermove',e=>{if(y0===null)return;dy=e.clientY-y0;if(Math.abs(dy)>4)moved=true;const d=dir<0?Math.min(0,dy):Math.max(0,dy);mv.style.transform=`translateY(${d}px)`});
+  const up=()=>{if(y0===null)return;y0=null;mv.classList.remove('drag');
+   if(!moved||dy*dir>40){done()}else{mv.style.transform=''}};
+  h.addEventListener('pointerup',up);h.addEventListener('pointercancel',()=>{y0=null;mv.classList.remove('drag');mv.style.transform=''});
+  h.addEventListener('click',e=>e.stopPropagation(),true)};
+ S.gb.mount=(el,p)=>{const v=el.querySelector('#g5View');if(!v){const d=document.createElement('button');d.id='g5View';d.hidden=true;el.appendChild(d)}
+  m0&&m0(el,p);
+  const sh=el.querySelector('#g5Sheet');if(sh){sh.onclick=null;drag(sh,sh,-1,()=>{sh.style.transform='';sh.classList.add('out');setTimeout(()=>swap('list'),160)})}
+  const gr=el.querySelector('#g5LGr');if(gr){const body=gr.closest('.body');drag(gr,body,1,()=>{body.style.transform='';body.classList.add('out');setTimeout(()=>swap('map'),160)})}}}
+/* @@dz05b.js@@ */
 render('fade');
 
 </script>
