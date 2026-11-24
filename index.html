@@ -3,13 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<script>/* 홈 화면에 추가한 웹 앱(standalone)에서는 상태표시줄 아래부터 화면 시작 — iOS 상단 흐림 효과 방지 (11.24) */(function(){try{if(navigator.standalone||matchMedia('(display-mode: standalone)').matches){var m=document.querySelector('meta[name=viewport]');m.setAttribute('content',m.getAttribute('content').replace(/,\s*viewport-fit=cover/,''));document.documentElement.classList.add('pwa')}}catch(e){}})();</script>
-<style>/* 홈 화면 웹 앱(iOS)은 상태표시줄 아래 일정 구간을 시스템이 흐리게 처리 → 헤더·콘텐츠를 그 구간 아래로 내림 (11.24) */
-html.pwa .page:not(.h1pg){padding-top:calc(env(safe-area-inset-top,0px) + 30px)!important}
-html.pwa .page.h1pg .body.nh.h1{padding-top:calc(env(safe-area-inset-top,0px) + 30px)!important}
-html.pwa .page:has(.gb-head)::before{height:calc(env(safe-area-inset-top,0px) + 30px)!important}</style>
 <title>FINE Alaseo · 사용 테스트</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
