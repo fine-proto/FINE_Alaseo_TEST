@@ -519,7 +519,7 @@ S.records={cls:'white',render:()=>hdr('기록')+`<div class="body"><div style="p
    20 더보기 (탭 루트) · 12 기기 관리 · 09 설정 · 10 알림 설정 · 18 AI 결과 보관함
    ========================================================= */
 S.more={tab:'more',render:()=>hdr('더보기',{noBack:true,right:`<span class="rt" id="logout" style="cursor:pointer">로그아웃</span>`})+`<div class="body tabpad" style="padding:20px 16px;display:flex;flex-direction:column;gap:24px">
- <div class="card" style="padding:18px 16px"><b style="font-size:13px">로그인 계정</b><div class="row" style="gap:8px;margin-top:12px"><span style="width:24px;height:24px;border-radius:6px;background:#FEE500;display:flex;align-items:center;justify-content:center;font-size:12px">💬</span><b style="font-size:18px">fineuser@example.com</b></div></div>
+ <div class="card" style="padding:18px 16px"><b style="font-size:13px">로그인 계정</b><div class="row" style="gap:8px;margin-top:12px"><span style="width:24px;height:24px;border-radius:6px;background:#FEE500;display:flex;align-items:center;justify-content:center;font-size:12px">💬</span><b style="font-size:18px">Admin_fineai@gmail.com</b></div></div>
  <div><div class="small muted bold" style="margin-bottom:8px">내 보관함</div><div class="card"><div class="list-row" data-go="aiVault" style="border-radius:16px"><span style="flex:1;font-size:15px;font-weight:500">AI 결과 보관함</span>${ICON.chev}</div></div></div>
  <div><div class="small muted bold" style="margin-bottom:8px">기기 관리</div>${st.device.registered?`<div class="card list-row" data-go="device" style="border-radius:16px;padding:10px"><span style="width:56px;height:56px;border-radius:14px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:22px">📷</span><div style="flex:1"><b style="font-size:16px">${st.device.name||st.device.model}</b><div class="small muted">연결된 차량 : ${st.device.car}</div></div>${ICON.chev}</div>`:`<div class="card list-row" data-toast="11 블랙박스 연결 (데모)" style="border-radius:16px"><span style="flex:1;font-weight:700;color:var(--orange)">+ 블랙박스 등록하기</span></div>`}</div>
  <div><div class="small muted bold" style="margin-bottom:8px">설정·지원</div><div class="card">${[['알림 설정','settings'],['공지사항',''],['고객 지원',''],['약관 및 정책','']].map(r=>`<div class="list-row" ${r[1]?`data-go="${r[1]}"`:`data-toast="${r[0]} (데모)"`}><span style="flex:1;font-size:15px;font-weight:500">${r[0]}</span>${ICON.chev}</div>`).join('')}<div class="list-row" style="cursor:default"><span style="flex:1;font-size:15px;font-weight:500">버전 정보</span><b>1.0.12</b></div></div></div>
@@ -1077,7 +1077,7 @@ S.reg7={cls:'white',render:()=>hdr('블랙박스 설정',{noBack:true})+`<div cl
    20 더보기 · 프로필 관리 · 공지/고객지원/약관 · 00 시작하기
    ========================================================= */
 S.more={tab:'more',render:()=>{const d=st.device,pf=st.profile;return hdr('더보기',{noBack:true})+`<div class="body tabpad" style="padding:20px 16px 160px;display:flex;flex-direction:column;gap:24px">
- <div class="card tap" data-go="profile" style="padding:18px 16px"><div class="row" style="justify-content:space-between"><b class="small">로그인 계정</b><span class="small muted">프로필 관리 ›</span></div><div class="row" style="gap:8px;margin-top:10px"><span style="width:24px;height:24px;border-radius:6px;background:#FEE500;display:flex;align-items:center;justify-content:center;font-size:12px">💬</span><b style="font-size:18px">fineuser@example.com</b></div><div class="small muted" style="margin-top:4px">${pf.last}${pf.first}</div></div>
+ <div class="card tap" data-go="profile" style="padding:18px 16px"><div class="row" style="justify-content:space-between"><b class="small">로그인 계정</b><span class="small muted">프로필 관리 ›</span></div><div class="row" style="gap:8px;margin-top:10px"><span style="width:24px;height:24px;border-radius:6px;background:#FEE500;display:flex;align-items:center;justify-content:center;font-size:12px">💬</span><b style="font-size:18px">Admin_fineai@gmail.com</b></div><div class="small muted" style="margin-top:4px">${pf.last}${pf.first}</div></div>
  <div><div class="small muted bold" style="margin-bottom:8px">내 보관함</div><div class="card"><div class="list-row" data-go="aiVault" style="border-radius:16px"><span style="flex:1;font-size:15px">AI 결과 보관함</span>${ICON.chev}</div></div></div>
  <div><div class="small bold" style="margin-bottom:8px;color:var(--sec)">기기 관리</div>${d.registered?`<div class="card list-row" data-go="device" style="border-radius:16px"><span style="width:44px;height:44px;border-radius:12px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:20px">📷</span><div style="flex:1"><b>${d.name||d.model}</b><div class="small muted">연결된 차량 : ${d.car}</div></div>${ICON.chev}</div>`:`<div class="card list-row" data-go="reg0" style="border-radius:16px"><b style="flex:1;color:var(--orange)">+ 블랙박스 등록하기</b>${ICON.chev}</div>`}</div>
  <div><div class="small muted bold" style="margin-bottom:8px">설정·지원</div><div class="card">${[['알림 설정','settings'],['공지사항','notice'],['고객 지원','support'],['약관 및 정책','terms']].map(r=>`<div class="list-row" data-go="${r[1]}" style="border-radius:16px"><span style="flex:1;font-size:15px">${r[0]}</span>${ICON.chev}</div>`).join('')}<div class="list-row" style="cursor:default;border-radius:16px"><span style="flex:1;font-size:15px">버전 정보</span><span class="muted">1.0.12</span></div></div></div></div>`}};
@@ -1086,7 +1086,7 @@ const withdraw=()=>modal({title:'계정 탈퇴',q:'정말 탈퇴할까요?',body
 S.profile={cls:'white',render:p=>{p.v=p.v||{...st.profile};const v=p.v;return hdr('프로필 관리',{right:`<button id="pfSave" style="font-size:15px;font-weight:700;color:${p.dirty?'var(--orange)':'#B4BAC3'}" ${p.dirty?'':'disabled'}>저장</button>`})+`<div class="body" style="padding:24px 16px 34px;display:flex;flex-direction:column;gap:28px">
  <div style="text-align:center"><div id="pfImg" style="width:88px;height:88px;border-radius:50%;margin:0 auto;position:relative;cursor:pointer;background:${v.img?GALC[1]:'#EEF0F3'};display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#9AA1AB">${v.img?'':(v.first||'파')[0]}<span style="position:absolute;right:-2px;bottom:-2px;width:28px;height:28px;border-radius:50%;background:var(--ink);border:2px solid #fff;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">✎</span></div><div class="small bold" style="color:var(--orange);margin-top:10px;cursor:pointer" id="pfImg2">프로필 사진 변경</div></div>
  <div class="row" style="gap:8px"><div class="field" style="flex:1;margin:0"><label>성</label><input class="input" data-pk="last" value="${v.last}"></div><div class="field" style="flex:1;margin:0"><label>이름</label><input class="input" data-pk="first" value="${v.first}"></div></div>
- <div class="field" style="margin:0"><label>이메일</label><div class="row" style="gap:8px;height:50px;border-radius:12px;background:var(--bg2);padding:0 14px"><span style="width:24px;height:24px;border-radius:6px;background:#FEE500;display:flex;align-items:center;justify-content:center;font-size:12px">💬</span><span class="muted" style="font-size:15px">fineuser@example.com</span></div><span class="small muted">카카오 계정으로 로그인한 이메일이에요. 여기서 변경할 수 없어요.</span></div>
+ <div class="field" style="margin:0"><label>이메일</label><div class="row" style="gap:8px;height:50px;border-radius:12px;background:var(--bg2);padding:0 14px"><span style="width:24px;height:24px;border-radius:6px;background:#FEE500;display:flex;align-items:center;justify-content:center;font-size:12px">💬</span><span class="muted" style="font-size:15px">Admin_fineai@gmail.com</span></div><span class="small muted">카카오 계정으로 로그인한 이메일이에요. 여기서 변경할 수 없어요.</span></div>
  <div style="flex:1"></div><div style="text-align:center"><button class="btn btn-sub" id="pfOut">로그아웃</button><p class="small muted" style="text-decoration:underline;margin-top:16px;cursor:pointer" id="pfWd">계정 탈퇴</p></div></div>`},
  guard(){if(!cur().p.dirty)return true;modal({title:'저장하지 않고 나가시겠어요?',body:'<div style="text-align:center">변경한 프로필이 저장되지 않아요.</div>',ok:'나가기',okCls:'mb-danger',onOk:()=>{stack.pop();render('pop')}});return false},
  mount(el,p){const sv=el.querySelector('#pfSave');el.querySelectorAll('[data-pk]').forEach(i=>i.addEventListener('input',()=>{p.v[i.dataset.pk]=i.value;if(!p.dirty){p.dirty=1;sv.disabled=false;sv.style.color='var(--orange)'}}));
@@ -3680,63 +3680,7 @@ const nickVal=()=>st.carNick.trim()||st.device.car;
 
 
 
-/* @@dz12.js@@ */
-/* ================= [디자인 반영 11.23] 12 기기 관리 — 피그마 12_기기관리 최신본 기준 =================
-   기기 이름 수정 제거 · 주행정보 가져오기(누락 데이터 있을 때만 · 가져오면 숨김) · 연결된 차량 수정(12-2 변경 확인) · 차량 별명 입력칸 바로 편집(최대 15자 · 완료/밖 탭 시 저장) · 기기 삭제(12-1-1) */
-document.head.insertAdjacentHTML('beforeend',`<style>
-.page.d12pg{background:#F2F3F7}
-.d12{padding:16px 15px 24px;background:#F2F3F7}
-.d12-cd{background:#fff;border:1px solid #E6E8EC;border-radius:16px;padding:16px}
-.d12-top{display:flex;align-items:center;gap:12px}
-.d12-top span{width:56px;height:56px;border-radius:14px;background:#F2F3F5;display:flex;align-items:center;justify-content:center;font-size:22px}
-.d12-top b{font-size:16px;font-weight:700;color:#111}
-.d12-kv{display:flex;justify-content:space-between;font-size:14px;color:#333;margin-top:12px}
-.d12-kv span:last-child{color:#555}.d12-kv b{font-weight:700;color:#111}
-.d12-bt{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;border-radius:14px;background:#E6E7EB;font-size:14px;font-weight:700;color:#111;margin-top:14px}
-.d12-bt+.d12-bt{margin-top:14px}
-.d12-n{width:16px;height:16px;border-radius:50%;background:#D7261E;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
-.d12-hr{height:1px;background:#ECEDF0;margin:14px 0}
-.d12-lb{font-size:13px;color:#555;margin-bottom:12px}
-.d12-car{display:flex;align-items:center;gap:12px;background:#F5F6F8;border-radius:12px;padding:11px 12px}
-.d12-car i{width:40px;height:40px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-style:normal}
-.d12-car b{display:block;font-size:15px;font-weight:700;color:#111}.d12-car small{display:block;font-size:12.5px;color:#555;margin-top:2px}
-.d12-car button{margin-left:auto;height:32px;padding:0 12px;border-radius:99px;border:1px solid #DADDE2;background:#fff;font-size:13px;color:#333}
-.d12-nf{display:flex;align-items:center;height:48px;border:1px solid #DADDE2;border-radius:12px;padding:0 12px 0 16px;cursor:pointer;background:#fff}
-.d12-nf input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:15px;color:#111;font-family:inherit;height:100%}.d12-nf input::placeholder{color:#A3A8AF}.d12-nf:focus-within{border-color:#EA580C}.d12-nf .pen{display:flex;cursor:pointer}
-.d12-del{position:sticky;bottom:0;padding:12px 15px 20px;background:#F2F3F7}
-.d12-del button{width:100%;height:50px;border-radius:14px;background:#fff;color:#D92D20;font-size:15px;font-weight:700}
-.d12-sh .hd{display:flex;align-items:center;justify-content:space-between;padding:4px 20px 6px}
-.d12-sh .hd h3{font-size:18px;font-weight:700;margin:0}
-.d12-sh .bd{padding:6px 20px 18px}.d12-sh .bd p{font-size:14px;color:#6B7280;margin:0 0 14px}
-.d12-sh .cnt{text-align:right;font-size:12px;color:#9AA0A6;margin-top:6px}
-</style>`);
-const D12PEN='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M18.4 2.6a2 2 0 0 1 2.9 2.9L12 14.8 8 16l1.2-4Z" fill="#111"/></svg>';
-st.carNick=st.carNick||'';if(st.devNew===undefined)st.devNew=true;
-const d12Nk=()=>(st.carNick||'').trim()||(st.carName&&st.carName!==st.device.car?st.carName:'');
-const d12Esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-S.device={cls:'gray d12pg',render:()=>{const d=st.device,nk=d12Nk();
- return hdr('기기 관리')+`<div class="body d12"><div class="d12-cd">
-  <div class="d12-top"><span>📷</span><b>${d.model||'X600 AI'}</b></div>
-  <div class="d12-kv"><span>SSID</span><span>FineVu_X600AI_1c5e13</span></div>
-  <div class="d12-kv"><span>펌웨어</span><b>1.0.001</b></div>
-  <button class="d12-bt" data-wifi="fw">업데이트</button>
-  ${st.devNew?'<button class="d12-bt" id="d12Imp"><i class="d12-n">N</i>주행정보 가져오기</button>':''}
-  <div class="d12-hr"></div>
-  <div class="d12-lb">연결된 차량</div>
-  <div class="d12-car"><i>🚗</i><div><b>${d12Esc(d.car)}</b><small>핸즈프리 · 연결됨</small></div><button id="chgCar">수정</button></div>
-  <div class="d12-hr"></div>
-  <div class="d12-lb">차량 별명</div>
-  <label class="d12-nf" id="d12Nick"><input id="d12In" maxlength="15" value="${d12Esc(nk)}" placeholder="${d12Esc(d.car)}" enterkeyhint="done" aria-label="차량 별명"><span class="pen">${D12PEN}</span></label>
- </div></div><div class="d12-del"><button id="delDev">기기 삭제</button></div>`},
- mount(el){
-  const imp=el.querySelector('#d12Imp');if(imp)imp.onclick=()=>{toast('주행정보를 가져오고 있어요');setTimeout(()=>{st.devNew=false;if(cur().id==='device')render('fade');toast('누락된 주행정보를 모두 가져왔어요')},1200)};
-  const ni=el.querySelector('#d12In'),save=()=>{const v=ni.value.trim(),was=d12Nk();if(v===was)return;st.carNick=v===st.device.car?'':v;st.carName=st.carNick||st.device.car;ni.value=st.carNick;toast(st.carNick?'차량 별명을 저장했어요':'연결된 차량 이름으로 되돌렸어요')};
-  ni.addEventListener('blur',save);ni.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();ni.blur()}});
-  el.querySelector('#d12Nick .pen').onclick=e=>{e.preventDefault();ni.focus();const L=ni.value.length;ni.setSelectionRange(L,L)};
-  el.querySelector('#chgCar').onclick=()=>sheet(`<h3>내 차량 블루투스를 선택해 주세요</h3>${[['SONATA_DN8','핸즈프리 · 최근 연결: 오늘'],['KIA EV3','핸즈프리 · 최근 연결: 3일 전'],['Galaxy Buds2','이어폰 · 최근 연결: 어제']].map(b=>`<div class="list-row" data-bt="${b[0]}"><span style="font-size:20px">${b[0].startsWith('Galaxy')?'🎧':'🚗'}</span><div style="flex:1"><b>${b[0]}</b><div class="small muted">${b[1]}</div></div></div>`).join('')}`,L=>L.querySelectorAll('[data-bt]').forEach(r=>r.onclick=()=>{const n=r.dataset.bt;$('#layer').innerHTML='';if(n===st.device.car){toast('현재 연결된 차량이에요');return}
-   modal({title:'연결 차량 변경',q:`${n}로 변경할까요?`,body:`기존 차량(${st.device.car}) 등록은 해제돼요.<br>블랙박스는 ${n}와 연결돼요.`,ok:'변경하기',onOk:()=>{st.device.car=n;st.carNick='';st.carName=n;render('fade');toast('연결 차량을 변경했어요')}})}));
-  el.querySelector('#delDev').onclick=()=>modal({title:'블랙박스 기기 삭제',q:'등록된 블랙박스를 삭제할까요?',body:'블랙박스와 연결된 차량 등록이 함께 해제돼요.<br>지금까지의 기록과 보관함 파일은 유지돼요.',ok:'기기 삭제',okCls:'mb-danger',onOk:()=>{st.device.registered=false;back();toast('기기를 삭제했어요')}})}};
-/* @@dz12.js@@ */
+
 
 
 /* @@dzh01.js@@ */
@@ -3893,6 +3837,83 @@ const h1SyncBar=()=>{const pg=[...document.querySelectorAll('#pages .page')].pop
 }
 /* @@dzh01.js@@ */
 
+
+/* @@dz12.js@@ */
+/* ================= [디자인 반영 11.23] 12 기기 관리 — 피그마 12_기기관리 최신본 기준 =================
+   기기 이름 수정 제거 · 주행정보 가져오기(누락 데이터 있을 때만 · 가져오면 숨김) · 연결된 차량 수정(12-2 변경 확인) · 차량 별명 입력칸 바로 편집(최대 15자 · 완료/밖 탭 시 저장) · 기기 삭제(12-1-1) */
+document.head.insertAdjacentHTML('beforeend',`<style>
+.page.d12pg{background:#F2F3F7}
+.d12{padding:16px 15px 24px;background:#F2F3F7}
+.d12-cd{background:#fff;border:1px solid #E6E8EC;border-radius:16px;padding:16px}
+.d12-top{display:flex;align-items:center;gap:12px}
+.d12-top span{width:56px;height:56px;border-radius:14px;background:#F2F3F5;display:flex;align-items:center;justify-content:center;font-size:22px}
+.d12-top b{font-size:16px;font-weight:700;color:#111}
+.d12-kv{display:flex;justify-content:space-between;font-size:14px;color:#333;margin-top:12px}
+.d12-kv span:last-child{color:#555}.d12-kv b{font-weight:700;color:#111}
+.d12-bt{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;border-radius:14px;background:#E6E7EB;font-size:14px;font-weight:700;color:#111;margin-top:14px}
+.d12-bt+.d12-bt{margin-top:14px}
+.d12-n{width:16px;height:16px;border-radius:50%;background:#D7261E;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.d12-hr{height:1px;background:#ECEDF0;margin:14px 0}
+.d12-lb{font-size:13px;color:#555;margin-bottom:12px}
+.d12-car{display:flex;align-items:center;gap:12px;background:#F5F6F8;border-radius:12px;padding:11px 12px}
+.d12-car i{width:40px;height:40px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-style:normal}
+.d12-car b{display:block;font-size:15px;font-weight:700;color:#111}.d12-car small{display:block;font-size:12.5px;color:#555;margin-top:2px}
+.d12-car button{margin-left:auto;height:32px;padding:0 12px;border-radius:99px;border:1px solid #DADDE2;background:#fff;font-size:13px;color:#333}
+.d12-nf{display:flex;align-items:center;height:48px;border:1px solid #DADDE2;border-radius:12px;padding:0 12px 0 16px;cursor:pointer;background:#fff}
+.d12-nf>span:first-child{flex:1;font-size:15px;color:#111}.d12-nf>span.ph{color:#A3A8AF}.d12-nf input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:15px;color:#111;font-family:inherit;height:100%}.d12-nf input::placeholder{color:#A3A8AF}.d12-nf:focus-within{border-color:#EA580C}.d12-nf .pen{display:flex;cursor:pointer}
+.d12-del{position:sticky;bottom:0;padding:12px 15px 20px;background:#F2F3F7}
+.d12-del button{width:100%;height:50px;border-radius:14px;background:#fff;color:#D92D20;font-size:15px;font-weight:700}
+.d12-sh .hd{display:flex;align-items:center;justify-content:space-between;padding:4px 20px 6px}
+.d12-sh .hd h3{font-size:18px;font-weight:700;margin:0}
+.d12-sh .bd{padding:6px 20px 18px}.d12-sh .bd p{font-size:14px;color:#6B7280;margin:0 0 14px}
+.d12-sh .cnt{text-align:right;font-size:12px;color:#9AA0A6;margin-top:6px}
+</style>`);
+/* 팝업(디자인 10_More): 제목·문구 가운데 정렬, 하단 선으로 나뉜 텍스트 버튼(취소 검정 / 실행 주황) */
+document.head.insertAdjacentHTML('beforeend',`<style>
+.modal.d10m{max-width:316px!important;border-radius:12px!important;padding:0!important;overflow:hidden;margin:0 auto}
+.modal.d10m h3{font-size:17px;font-weight:700;margin:26px 20px 12px;color:#1F2329}
+.modal.d10m .q{font-size:15px;color:#333;margin:0 20px 10px}
+.modal.d10m .b{text-align:center!important;font-size:14px;color:#555;line-height:21px;margin:0 20px 22px}
+.modal.d10m .btns{gap:0!important;border-top:1px solid #ECEDF0;display:flex}
+.modal.d10m .btns button{flex:1;height:56px;background:#fff!important;border:0!important;border-radius:0!important;font-size:16.5px;font-weight:700;color:#1F2329!important;box-shadow:none!important}
+.modal.d10m .btns button+button{border-left:1px solid #ECEDF0!important}
+.modal.d10m:not(.sg) #mOk{color:#F28300!important}
+</style>`);
+function d10modal(o){modal(o);const m=document.querySelector('#layer .modal');if(m){m.classList.add('d10m');if(o.single)m.classList.add('sg')}}
+const D12PEN='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M18.4 2.6a2 2 0 0 1 2.9 2.9L12 14.8 8 16l1.2-4Z" fill="#111"/></svg>';
+st.carNick=st.carNick||'';if(st.devNew===undefined)st.devNew=true;
+const d12Nk=()=>(st.carNick||'').trim()||(st.carName&&st.carName!==st.device.car?st.carName:'');
+const d12Esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+S.device={cls:'gray d12pg',render:()=>{const d=st.device,nk=d12Nk();
+ return hdr('기기 관리')+`<div class="body d12"><div class="d12-cd">
+  <div class="d12-top"><span>📷</span><b>${d.model||'X600 AI'}</b></div>
+  <div class="d12-kv"><span>SSID</span><span>FineVu_X600AI_1c5e13</span></div>
+  <div class="d12-kv"><span>펌웨어</span><b>1.0.001</b></div>
+  <button class="d12-bt" id="d12Up">업데이트</button>
+  ${st.devNew?'<button class="d12-bt" id="d12Imp"><i class="d12-n">N</i>주행정보 가져오기</button>':''}
+  <div class="d12-hr"></div>
+  <div class="d12-lb">연결된 차량</div>
+  <div class="d12-car"><i>🚗</i><div><b>${d12Esc(d.car)}</b><small>핸즈프리 · 연결됨</small></div><button id="chgCar">수정</button></div>
+  <div class="d12-hr"></div>
+  <div class="d12-lb">차량 별명</div>
+  <div class="d12-nf" id="d12Nick" role="button" aria-label="차량 별명 수정"><span class="${nk?'':'ph'}">${d12Esc(nk||d.car)}</span><span class="pen">${D12PEN}</span></div>
+ </div></div><div class="d12-del"><button id="delDev">기기 삭제</button></div>`},
+ mount(el){
+  const imp=el.querySelector('#d12Imp');if(imp)imp.onclick=()=>{toast('주행정보를 가져오고 있어요');setTimeout(()=>{st.devNew=false;if(cur().id==='device')render('fade');toast('누락된 주행정보를 모두 가져왔어요')},1200)};
+  el.querySelector('#d12Nick').onclick=()=>{
+   sheet(`<div class="r11-sh"><div class="hd"><div><h3>차량 별명</h3><p>연결된 차량의 별명을 입력해 주세요.</p></div><button id="d12X" aria-label="닫기" style="background:none;padding:6px"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M1 1l12 12M13 1 1 13" stroke="#333" stroke-width="1.7" stroke-linecap="round"/></svg></button></div>
+    <div class="bd"><input id="d12In" maxlength="15" value="${d12Esc(d12Nk())}" placeholder="${d12Esc(st.device.car)}" enterkeyhint="done"><button class="btn btn-primary" id="d12Ok">저장</button></div></div>`,L=>{
+    const i=L.querySelector('#d12In');L.querySelector('#d12X').onclick=()=>{$('#layer').innerHTML=''};
+    const save=()=>{const v=i.value.trim();st.carNick=v===st.device.car?'':v;st.carName=st.carNick||st.device.car;$('#layer').innerHTML='';render('fade');toast(st.carNick?'차량 별명을 저장했어요':'연결된 차량 이름으로 되돌렸어요')};
+    L.querySelector('#d12Ok').onclick=save;i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();save()}});
+    setTimeout(()=>{i.focus();i.select()},250)})};
+  el.querySelector('#d12Up').onclick=()=>d10modal({title:'새 펌웨어 업데이트가 있어요',body:'지금 업데이트하시겠습니까?<br>설치가 끝날 때까지<br>블랙박스 전원을 유지해 주세요.',cancel:'나중에',ok:'업데이트',onOk:()=>wifiThen(()=>go('fw'))});
+  el.querySelector('#chgCar').onclick=()=>sheet(`<h3>내 차량 블루투스를 선택해 주세요</h3>${[['SONATA_DN8','핸즈프리 · 최근 연결: 오늘'],['KIA EV3','핸즈프리 · 최근 연결: 3일 전'],['GRANDEUR_GN7','핸즈프리 · 다른 블랙박스에 연결됨'],['Galaxy Buds2','이어폰 · 최근 연결: 어제']].map(b=>`<div class="list-row" data-bt="${b[0]}"><span style="font-size:20px">${b[0].startsWith('Galaxy')?'🎧':'🚗'}</span><div style="flex:1"><b>${b[0]}</b><div class="small muted">${b[1]}</div></div></div>`).join('')}`,L=>L.querySelectorAll('[data-bt]').forEach(r=>r.onclick=()=>{const n=r.dataset.bt;$('#layer').innerHTML='';if(n===st.device.car){toast('현재 연결된 차량이에요');return}
+   if(n==='Galaxy Buds2'){toast('차량 핸즈프리만 선택할 수 있어요');return}
+   if(n==='GRANDEUR_GN7'){d10modal({title:'이미 연결된 차량 또는 기기예요',body:'차량 1대와 블랙박스 1대만 연결할 수 있어요.<br>기존 연결 정보를 확인해 주세요.',single:1,ok:'확인'});return}
+   d10modal({title:'연결 차량 변경',q:`${n}로 변경할까요?`,body:`기존 차량(${st.device.car}) 등록은 해제돼요.<br>블랙박스는 ${n}와 연결돼요.`,ok:'변경하기',onOk:()=>{st.device.car=n;st.carNick='';st.carName=n;render('fade');toast('연결 차량을 변경했어요')}})}));
+  el.querySelector('#delDev').onclick=()=>d10modal({title:'블랙박스 기기 삭제',q:'등록된 블랙박스를 삭제할까요?',body:'블랙박스와 연결된 차량 등록이 함께 해제돼요.<br>보관함에 저장한 파일은 유지돼요.',ok:'기기 삭제',onOk:()=>{st.device.registered=false;back();toast('기기를 삭제했어요')}})}};
+/* @@dz12.js@@ */
 /* @@dz11.js@@ */
 /* ================= [디자인 반영 11.24] 11 블랙박스 연결(기기 추가) — 디자인팀 00_Add 기준 =================
    단계 표시 n/4(1 시작 · 2 기기 선택 · 3 REC 버튼 · 4 차량 블루투스) · 헤더 '기기 연결' + 도움말(?) · 연결 완료(차량 별명 시트) · 연결 실패
@@ -3929,7 +3950,7 @@ document.head.insertAdjacentHTML('beforeend',`<style>
 .r11-wait small{margin-left:auto;font-size:12px;color:#8B95A1;margin-right:8px}.r11-wait b{font-size:20px;font-weight:800;color:#1F2329;font-variant-numeric:tabular-nums}
 .r11-wait.ok{font-weight:700;color:#1F2329}.r11-wait.ok span{margin-left:auto;width:20px;height:20px;border-radius:50%;background:#F28300;display:flex;align-items:center;justify-content:center}
 .r11-ct{text-align:center;padding-top:26px}
-.r11-ct img{width:65px;height:50px}
+.r11-ct img{width:65px;height:50px;display:block;margin:0 auto}
 .r11-ct h2{font-size:20px;font-weight:700;color:#1F2329;margin-top:22px;letter-spacing:-.4px}
 .r11-ct p{font-size:13px;color:#6B7280;margin-top:10px}
 .r11-dc{border:1px solid #E3E5E8;border-radius:10px;padding:18px 16px;margin-top:26px}
@@ -3972,8 +3993,7 @@ const r11Nick=()=>(st.carNick||'').trim();
 S.reg0={cls:'white r11pg',render:()=>r11H()+`<div class="body r11">${r11T('블랙박스를<br>앱에 연결해 볼까요?',1,'약 2~3분이면 끝나요.<br>연결하면 주행 영상을 휴대폰에서 바로 보고 저장할 수 있어요.')}
  <div class="r11-sec">시작 전에 확인해 주세요</div>
  ${[['c1','차량 시동을 켜 주세요','블랙박스 전원이 켜져 있어야 해요'],['c2','차 안, 블랙박스 가까이에 있어 주세요','휴대폰 Wi-Fi도 켜 두세요'],['c3','무선 Apple CarPlay는 잠시 해제해 주세요','연결 중 Wi-Fi가 충돌할 수 있어요']].map((r,i)=>`<div class="r11-ck"><img src="${D11[r[0]]}" alt=""><div><small>${i+1}</small><b>${r[1]}</b><span>${r[2]}</span></div></div>`).join('')}</div>`+fixb(`<button class="btn btn-primary" id="r11Start">확인했어요, 시작할게요</button>`),
- mount(el){r11Mount(el);el.querySelector('#r11Start').onclick=()=>{if(st.r11Perm){go('reg3');return}
-  modal({title:'‘FINE Alaseo’이(가) 위치 및 근처 기기에 접근하도록 허용하겠습니까?',body:'<div style="text-align:center">시스템 권한 팝업 (iOS/Android 기본 UI)<br><span class="small muted">권한이 이미 허용된 경우에는 표시되지 않아요</span></div>',cancel:'허용 안 함',ok:'허용',onOk:()=>{st.r11Perm=1;go('reg3')}})}}};
+ mount(el){r11Mount(el);el.querySelector('#r11Start').onclick=()=>go('reg3')}};
 /* 삭제된 화면(11-1·11-2·11-5)으로 들어오는 다른 경로는 새 흐름으로 연결 */
 S.reg1={cls:'white r11pg',render:()=>'<div class="body"></div>',mount(){setTimeout(()=>{if(cur().id==='reg1')replaceTop('reg3')},0)}};
 S.reg2={cls:'white r11pg',render:()=>'<div class="body"></div>',mount(){setTimeout(()=>{if(cur().id==='reg2')replaceTop('reg3')},0)}};
@@ -4032,6 +4052,38 @@ S.reg7={cls:'white r11pg',render:()=>{const nk=r11Nick();
     L.querySelector('#r11Save').onclick=save;i.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();save()}});
     setTimeout(()=>{i.focus();i.select()},250)})}}};
 /* @@dz11.js@@ */
+
+/* @@dz10.js@@ */
+/* ================= [디자인 반영 11.24] 20 더보기 — 디자인팀 10_More 기준 =================
+   로그인 계정(구글 · 이메일 · 수정 버튼) / 기기 관리 / 알림 설정 / 공지사항 / 고객 지원 / 약관 및 정책 / 버전 정보 — 카드 없이 흰 배경 목록 */
+document.head.insertAdjacentHTML('beforeend',`<style>
+.page.d10pg{background:#fff}
+.d10{padding:0 0 24px;background:#fff}
+.d10-ac{padding:14px 20px 18px;border-bottom:1px solid #ECEDF0;margin:0 0 6px}
+.d10-ac small{display:block;font-size:12px;color:#8B95A1}
+.d10-ac .rw{display:flex;align-items:center;gap:8px;margin-top:10px}
+.d10-ac b{flex:1;font-size:15.5px;font-weight:700;color:#1F2329;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.d10-ac button{width:28px;height:28px;border-radius:50%;border:1px solid #DADDE2;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.d10-row{display:flex;align-items:center;height:60px;padding:0 16px 0 20px;font-size:15.5px;font-weight:500;color:#1F2329;cursor:pointer}
+.d10-row span{flex:1}
+.d10-ver{padding:14px 20px}
+.d10-ver b{display:block;font-size:15.5px;font-weight:500;color:#1F2329}.d10-ver small{display:block;font-size:13px;color:#8B95A1;margin-top:6px}
+.hdr .title.d10-title{font-size:20px;font-weight:700;color:#1F2329;padding-left:4px}
+#tabbar .t.on[data-tab=more] svg{background:#1F2329;border-radius:50%;fill:#fff!important;stroke:none!important}
+</style>`);
+const D10I={
+ g:'<svg width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>',
+ pen:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1F2329" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>',
+ chev:'<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#9AA0A6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.5 5.5 5.5-5.5 5.5"/></svg>'};
+const D10MAIL='Admin_fineai@gmail.com';
+{const m0=S.more.mount;S.more.cls='white d10pg';
+ S.more.render=()=>{const isTab=!!S.more.tab;
+  return (isTab?`<div class="hdr"><div class="title d10-title">더보기</div></div>`:hdr('더보기'))+`<div class="body d10 ${isTab?'tabpad':''}">
+  <div class="d10-ac"><small>로그인 계정</small><div class="rw">${D10I.g}<b>${D10MAIL}</b><button data-go="profile" aria-label="프로필 관리">${D10I.pen}</button></div></div>
+  ${[['기기 관리',st.device.registered?'device':'reg0'],['알림 설정','settings'],['공지사항','notice'],['고객 지원','support'],['약관 및 정책','terms']].map(r=>`<div class="d10-row" data-go="${r[1]}"><span>${r[0]}</span>${D10I.chev}</div>`).join('')}
+  <div class="d10-ver"><b>버전 정보</b><small>1.0.12</small></div></div>`};
+ S.more.mount=(el,p)=>{try{m0&&m0(el,p)}catch(e){}}}
+/* @@dz10.js@@ */
 render('fade');
 
 </script>
